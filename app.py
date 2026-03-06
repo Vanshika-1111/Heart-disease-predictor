@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS # Import CORS
 import os
 
+
+
 # --- Configuration (Model Artifacts and Column Names) ---
 ARTIFACT_DIR = 'model_artifacts'
 MODEL_PATH = os.path.join(ARTIFACT_DIR, 'best_model.pkl')
@@ -17,7 +19,7 @@ ONE_COLS = ['cp', 'restecg', 'slope', 'ca', 'thal']
 CONT_COLS = ['age', 'trestbps', 'chol', 'thalach', 'oldpeak']
 ORDINAL_COLS = ['sex', 'fbs', 'exang']
 
-# Initialize Flask application
+# Initialize Flask applicationgit 
 app = Flask(__name__)
 # FIX: Apply CORS globally for maximum compatibility 
 CORS(app) 
@@ -135,5 +137,6 @@ def predict():
 
 # Run the application
 if __name__ == '__main__':
+    port = int(os.environ.get("PORT",10000))
     # Fix: Port 8080 used to match index.html and avoid 5000 conflicts
-    app.run(debug=True, port=8080)
+    app.run(debug=True, host="0.0.0.0", port=port)
